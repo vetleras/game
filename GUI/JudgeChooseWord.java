@@ -18,7 +18,12 @@ public class JudgeChooseWord extends JPanel {
 
         //construct components
         btnStart = new JButton ("Start game!");
-        btnStart.add
+        btnStart.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //scheduler.addToQueueLast(button.getText());
+                        System.out.println("Button pressed");
+                    }
+                });
         txtWord = new JTextField (5);
         lblWord = new JLabel ("Write your word:");
         lstParticipants = new JList (lstParticipantsItems);
