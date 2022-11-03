@@ -1,0 +1,41 @@
+@startuml DrawingGameStateMachine
+
+state Judge {
+  state J_entry <<entryPoint>>
+  state J_exit <<exitPoint>>
+
+  J_entry --> J_WaitingOnParticipantsAndWord 
+
+  J_WaitingOnParticipantsAndWord --> J_CountingDown : continueButton / sendWord
+  J_CountingDown --> J_WaitingOnJudge : timerExpired
+  J_WaitingOnJudge --> J_DisplayingResult : winnerSelected / sendResults
+  J_DisplayingResult --> J_exit: continueButton
+}
+
+state Participant {
+  state P_entry <<entryPoint>>
+  state P_exit <<exitPoint>>
+
+  P_entry --> P_WaitingOnWord 
+
+  P_WaitingOnWord --> P_Drawing : receivedWord
+  P_Drawing --> P_WaitingOnResult : timerExpired / sendDrawing
+
+  P_WaitingOnResult --> P_DisplayingWin : receivedWinner
+  P_DisplayingWin --> P_exit: continueButton
+
+  P_WaitingOnResult --> P_DisplayingLose : receivedLooser
+  P_DisplayingLose --> P_WaitingOnWord : continueButton
+
+
+}
+
+state InitialChoiceJudge <<choice>>
+[*] --> InitialChoiceJudge
+InitialChoiceJudge --> P_entry: [!initialJudge]
+InitialChoiceJudge --> J_entry: [initialJudge]
+
+J_exit --> P_entry
+P_exit --> J_entry
+
+@enduml

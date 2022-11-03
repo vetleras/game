@@ -1,0 +1,9 @@
+Front-end: Tobias
+
+Judge: Flo
+
+Participant: Vetle, cli
+
+Pi: Thomas
+
+DONE MQTT-client: Christian
